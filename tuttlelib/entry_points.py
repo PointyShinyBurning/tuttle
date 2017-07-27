@@ -27,6 +27,7 @@ def check_minus_1_or_positive(value):
 
 
 def tuttle_main():
+    print("tuttle_main Ok")
     parser = ArgumentParser(
         description="Runs a workflow - version {}".format(version)
     )
@@ -67,6 +68,8 @@ def tuttle_main():
                                               help='Remove some resources already computed and all their dependencies')
     parser_invalidate.add_argument('resources', help='url of the resources to invalidate', nargs="*")
     params = parser.parse_args(sys.argv[1:])
+
+    print("args Ok")
 
     tuttlefile_path = abspath(params.tuttlefile)
     if not exists(tuttlefile_path):
