@@ -49,6 +49,7 @@ def run_process_without_exception(process):
     print("After process name Ok")
     try:
         print_process_header(process, LOGGER)
+        print("After print_process_header Ok")
         process._processor.run(process, process._reserved_path, process.log_stdout, process.log_stderr)
     except TuttleError as e:
         return False, str(e), None
