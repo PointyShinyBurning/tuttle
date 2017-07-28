@@ -4,6 +4,13 @@
 Utility methods for use in running workflows.
 This module is responsible for the inner structure of the .tuttle directory
 """
+
+
+def run_process_without_exception(process):
+    print("run_process_without_exception Ok")
+    return
+
+
 from glob import glob
 from multiprocessing import Pool, cpu_count
 import multiprocessing
@@ -43,10 +50,10 @@ def output_signatures(process):
 # This is a free method, because it will be serialized and passed
 # to another process, so it must not be linked to objects nor
 # capture closures
-def run_process_without_exception(process):
+def run_process_without_exception2(process):
+    print("run_process_without_exception Ok")
     return
     raise Exception("Stop")
-    print("run_process_without_exception Ok")
     multiprocessing.current_process().name = process.id
     print("After process name Ok")
     try:
