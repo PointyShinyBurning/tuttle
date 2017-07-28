@@ -44,7 +44,9 @@ def output_signatures(process):
 # to another process, so it must not be linked to objects nor
 # capture closures
 def run_process_without_exception(process):
+    print("run_process_without_exception Ok")
     multiprocessing.current_process().name = process.id
+    print("After process name Ok")
     try:
         print_process_header(process, LOGGER)
         process._processor.run(process, process._reserved_path, process.log_stdout, process.log_stderr)
@@ -169,7 +171,8 @@ class WorkflowRuner:
                 print("failures = {}".format(failures))
                 print("self.active_workers() = {}".format(self.active_workers()))
                 print("self._completed_processes = {}".format(self._completed_processes))
-                print("self.runnables = {}".format(runnables))
+                print("runnables = {}".format(runnables))
+                print("self.workers_available() = self.workers_available()".format(runnables))
                 started_a_process = False
                 while self.workers_available() and runnables:
                     # No error
