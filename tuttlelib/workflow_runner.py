@@ -130,8 +130,8 @@ class WorkflowRuner:
 
         process.set_start()
         resp = self._pool.apply_async(run_process_without_exception, [process], callback = process_run_callback)
-        raise Exception("Stop")
         print resp.get()
+        raise Exception("Stop")
 
     def run_parallel_workflow(self, workflow, keep_going=False):
         """ Runs a workflow by running every process in the right order
