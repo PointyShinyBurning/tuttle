@@ -101,9 +101,11 @@ class LogsFollower:
         def trace_logs_until_stop():
             print("trace_logs_until_stop ok")
             sys.stdin.flush()
+            i = 0
             while True:
-                print("trace_logs_until_stop ok")
-                sys.stdin.flush()
+                if (i % 10000) == 0:
+                    print("Still... trace_logs_until_stop ok")
+                    sys.stdin.flush()
                 traced = self.trace_logs()
                 if self._terminate and not traced:
                     print("trace_in_background : self._terminate and not traced Ok")
@@ -111,9 +113,10 @@ class LogsFollower:
                     break
                 if not traced:
                     sleep(0.1)
+                i = i + 1
         print("Before creating threads ok")
         sys.stdin.flush()
-        self._thread = Thread(target=trace_logs_until_stop, name="log tracer")
+        self._thread = Thread(target=trace_logs_until_stop)
         print("Before starting threads ok")
         sys.stdin.flush()
         self._thread.start()
