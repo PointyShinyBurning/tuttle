@@ -139,7 +139,7 @@ class WorkflowRuner:
 
         process.set_start()
         resp = self._pool.apply_async(run_process_without_exception, [process], callback = process_run_callback)
-        print resp.get()
+        print resp.wait(5)
         raise Exception("Stop")
 
     def run_parallel_workflow(self, workflow, keep_going=False):
