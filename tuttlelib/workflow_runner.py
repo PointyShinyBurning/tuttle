@@ -138,7 +138,6 @@ class WorkflowRuner:
         sleep(1)
         print("Slept 1s ok")
         sys.stdin.flush()
-        raise Exception("Stop")
         # TODO create tuttle dirs only once
         WorkflowRuner.create_tuttle_dirs()
         for process in workflow.iter_processes():
@@ -182,6 +181,7 @@ class WorkflowRuner:
                     print("Before start_process_in_background ok")
                     sys.stdin.flush()
                     self.start_process_in_background(process)
+                    raise Exception("Stop")
                     print("After start_process_in_background ok")
                     sys.stdin.flush()
                     started_a_process = True
