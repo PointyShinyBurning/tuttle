@@ -44,6 +44,7 @@ def output_signatures(process):
 # to another process, so it must not be linked to objects nor
 # capture closures
 def run_process_without_exception(process):
+    raise Exception("Stop")
     print("run_process_without_exception Ok")
     multiprocessing.current_process().name = process.id
     print("After process name Ok")
