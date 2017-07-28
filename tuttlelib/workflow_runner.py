@@ -126,6 +126,7 @@ class WorkflowRuner:
             self._completed_processes.append((process, signatures))
 
         process.set_start()
+        raise Exception("Stop")
         resp = self._pool.apply_async(run_process_without_exception, [process], callback = process_run_callback)
         print resp.get()
 
@@ -180,7 +181,6 @@ class WorkflowRuner:
                     process = runnables.pop()
                     print("Before start_process_in_background ok")
                     sys.stdin.flush()
-                    raise Exception("Stop")
                     self.start_process_in_background(process)
                     raise Exception("Stop")
                     print("After start_process_in_background ok")
