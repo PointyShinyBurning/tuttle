@@ -107,7 +107,7 @@ class WorkflowRuner:
         self._logger = WorkflowRuner.get_logger()
         self._pool = None
         if nb_workers == -1:
-            self._nb_workers = int(cpu_count() / 2)
+            self._nb_workers = int( (cpu_count() + 1) / 2)
         else :
             self._nb_workers = nb_workers
         self._free_workers = None
@@ -165,6 +165,11 @@ class WorkflowRuner:
             runnables = workflow.runnable_processes()
             failures = False
             while (keep_going or not failures) and (self.active_workers() or self._completed_processes or runnables):
+                print("keep_going = {}".format(keep_going))
+                print("failures = {}".format(failures))
+                print("self.active_workers() = {}".format(self.active_workers()))
+                print("self._completed_processes = {}".format(self._completed_processes))
+                print("self.runnables = {}".format(self.runnables))
                 started_a_process = False
                 while self.workers_available() and runnables:
                     # No error

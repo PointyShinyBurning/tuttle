@@ -55,8 +55,8 @@ def tuttle_main():
                                        help='Run the missing part of workflow')
     parser_run.add_argument('-j', '--jobs',
                             help='Number of workers (to run processes in parallel)\n'
-                                 'Default -1 = half of the number of cpus',
-                            default=-1,
+                                 '-1 = half of the number of cpus\n',
+                            default=1,
                             type=check_minus_1_or_positive)
     parser_run.add_argument('-k', '--keep-going',
                             help='Number of workers (to run processes in parallel)\n'
