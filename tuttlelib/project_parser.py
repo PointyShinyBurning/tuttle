@@ -109,6 +109,7 @@ class ProjectParser():
         :param filename:
         :return: the workflow
         """
+        print("parse_and_check_file ok")
         self._streamer = LinesStreamer()
         self._streamer.add_file(filename)
         return self.parse_extend_and_check_project()
@@ -125,11 +126,15 @@ class ProjectParser():
         :param filename:
         :return: the workflow
         """
+        print("parse_extend_and_check_project ok")
         workflow = self.parse_project()
         workflow.run_pre_processes()
+        print("run_pre_processes ok")
         self.parse_extensions_to_workflow(workflow)
+        print("parse_extensions_to_workflow ok")
 
         unreachable = workflow.circular_references()
+        print("circular_references ok")
         if unreachable:
             error_msg = "The following resources references one another as inputs in a circular way that don't allow " \
                         "to choose which one to run first :\n"
@@ -137,6 +142,7 @@ class ProjectParser():
                 error_msg += "* {}\n".format(process.id)
             raise WorkflowError(error_msg, self._filename, self._streamer._num_line)
         workflow.static_check_processes()
+        print("static_check_processes ok")
         return workflow
 
     def set_project(self, text):

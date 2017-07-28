@@ -8,6 +8,7 @@ from tuttlelib.workflow_runner import WorkflowRuner
 
 
 def load_project(tuttlefile):
+    print("load_project Ok")
     pp = ProjectParser()
     workflow = pp.parse_and_check_file(tuttlefile)
     return workflow
