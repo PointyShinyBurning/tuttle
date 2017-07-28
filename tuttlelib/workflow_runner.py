@@ -131,7 +131,7 @@ class WorkflowRuner:
         list of processes ended with success, list of processes ended with failure
         """
         print("run_parallel_workflow Ok")
-        time.sleep(1)
+        sleep(1)
         print("Slept 1s ok")
         sys.stdin.flush()
 
@@ -141,9 +141,27 @@ class WorkflowRuner:
             WorkflowRuner.prepare_and_assign_paths(process)
             self._lt.follow_process(process.log_stdout, process.log_stderr, process.id)
 
+        print("Added logs to follow ok")
+        sys.stdin.flush()
+
         failure_processes, success_processes = [], []
+        print("Before starting to trace in bg ok")
+        sys.stdin.flush()
+        sleep(1)
+        print("Slept 1s ok")
+        sys.stdin.flush()
         with self._lt.trace_in_background():
+            print("After starting to trace in bg ok")
+            sys.stdin.flush()
+            sleep(1)
+            print("Slept 1s ok")
+            sys.stdin.flush()
             self.init_workers()
+            print("After workers are initialized in bg ok")
+            sys.stdin.flush()
+            sleep(1)
+            print("Slept 1s ok")
+            sys.stdin.flush()
             runnables = workflow.runnable_processes()
             failures = False
             while (keep_going or not failures) and (self.active_workers() or self._completed_processes or runnables):
@@ -151,7 +169,11 @@ class WorkflowRuner:
                 while self.workers_available() and runnables:
                     # No error
                     process = runnables.pop()
+                    print("Before start_process_in_background ok")
+                    sys.stdin.flush()
                     self.start_process_in_background(process)
+                    print("After start_process_in_background ok")
+                    sys.stdin.flush()
                     started_a_process = True
 
                 handled_completed_process = False
@@ -171,7 +193,9 @@ class WorkflowRuner:
                     workflow.create_reports()
 
                 if not (handled_completed_process or started_a_process):
-                    sleep(0.1)
+                    sleep(1)
+                    print("Slept 1s instead of 0.1 ok")
+                    sys.stdin.flush()
             self.terminate_workers_and_clean_subprocesses()
         if failure_processes:
             WorkflowRuner.mark_unfinished_processes_as_failure(workflow)
