@@ -33,6 +33,8 @@ class LogTracer:
     def trace(self):
         if not self._filedescr:
             if isfile(self._filename):
+                print("trace opening file ok")
+                sys.stdin.flush()
                 self._filedescr = open(self._filename, 'r')
         traced = False
         if self._filedescr:
@@ -46,6 +48,7 @@ class LogTracer:
     def close(self):
         if self._filedescr:
             self._filedescr.close()
+
 
 class EnsureLogsFollowerStops(object):
     """
@@ -92,15 +95,27 @@ class LogsFollower:
                 sleep(0.1)
 
     def trace_in_background(self):
+        print("trace_in_background ok")
+        sys.stdin.flush()
+
         def trace_logs_until_stop():
+            print("trace_logs_until_stop ok")
+            sys.stdin.flush()
             while True:
+                print("trace_logs_until_stop ok")
+                sys.stdin.flush()
                 traced = self.trace_logs()
                 if self._terminate and not traced:
                     print("trace_in_background : self._terminate and not traced Ok")
+                    sys.stdin.flush()
                     break
                 if not traced:
                     sleep(0.1)
-        self._thread = Thread(target=trace_logs_until_stop, name="worker")
+        print("Before creating threads ok")
+        sys.stdin.flush()
+        self._thread = Thread(target=trace_logs_until_stop, name="log tracer")
+        print("Before starting threads ok")
+        sys.stdin.flush()
         self._thread.start()
         return EnsureLogsFollowerStops(self)
         
@@ -108,8 +123,10 @@ class LogsFollower:
         #sleep(0.1) # wait for flush
         self._terminate = True
         print("self._terminate = True Ok")
+        sys.stdin.flush()
         self._thread.join()
         print("self._thread.join Ok")
+        sys.stdin.flush()
         for log in self._logs:
             log.close()
         print("log.close Ok")

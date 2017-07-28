@@ -1,4 +1,6 @@
 # -*- coding: utf8 -*-
+import sys
+
 from tuttlelib.report.html_repport import create_html_report
 from pickle import dump, load
 from tuttlelib.workflow_runner import WorkflowRuner, TuttleEnv
@@ -125,6 +127,7 @@ class Workflow:
         :return:
         :raises ExecutionError if an error occurs
         """
+        print("run_pre_processes ok")
         WorkflowRuner.create_tuttle_dirs()
         WorkflowRuner.empty_extension_dir()
         if not self.has_preprocesses():
@@ -135,6 +138,7 @@ class Workflow:
             WorkflowRuner.prepare_and_assign_paths(process)
             lt.follow_process(process.log_stdout, process.log_stderr, process.id)
 
+        print("follow_process ok")
         with lt.trace_in_background(), TuttleEnv():
             for preprocess in self.iter_preprocesses():
                 WorkflowRuner.print_preprocess_header(preprocess, lt._logger)
@@ -143,8 +147,13 @@ class Workflow:
                                              preprocess.log_stdout, preprocess.log_stderr)
 
                 finally:
+
                     self.create_reports()
+                    print("create_reports ok")
+            print("Before print_preprocesses_footer ok")
+            sys.stdin.flush()
             WorkflowRuner.print_preprocesses_footer()
+        print("After __exit__ ok")
 
     def create_reports(self):
         """ Write to disk files describing the workflow, with color for states
