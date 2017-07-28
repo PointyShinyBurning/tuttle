@@ -127,6 +127,7 @@ class WorkflowRuner:
 
         process.set_start()
         resp = self._pool.apply_async(run_process_without_exception, [process], callback = process_run_callback)
+        print resp.get()
 
     def run_parallel_workflow(self, workflow, keep_going=False):
         """ Runs a workflow by running every process in the right order
@@ -173,7 +174,7 @@ class WorkflowRuner:
                 print("self.active_workers() = {}".format(self.active_workers()))
                 print("self._completed_processes = {}".format(self._completed_processes))
                 print("runnables = {}".format(runnables))
-                print("self.workers_available() = self.workers_available()".format(runnables))
+                print("self.workers_available() = {}".format(self.workers_available()))
                 started_a_process = False
                 while self.workers_available() and runnables:
                     # No error
