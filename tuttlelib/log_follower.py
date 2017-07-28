@@ -52,13 +52,17 @@ class EnsureLogsFollowerStops(object):
     Ensures a LogFollower is stopped when no longer required
     """
     def __init__(self, lf):
+        print("EnsureLogsFollowerStops Ok")
         self._lf = lf
 
     def __enter__(self):
+        print("EnsureLogsFollowerStops.__enter__ Ok")
         pass
  
     def __exit__(self, *args):
+        print("EnsureLogsFollowerStops.__exit__ Ok")
         self._lf.terminate()
+        print("terminate Ok")
 
 
 class LogsFollower:
@@ -92,6 +96,7 @@ class LogsFollower:
             while True:
                 traced = self.trace_logs()
                 if self._terminate and not traced:
+                    print("trace_in_background : self._terminate and not traced Ok")
                     break
                 if not traced:
                     sleep(0.1)
@@ -102,9 +107,12 @@ class LogsFollower:
     def terminate(self):
         #sleep(0.1) # wait for flush
         self._terminate = True
+        print("self._terminate = True Ok")
         self._thread.join()
+        print("self._thread.join Ok")
         for log in self._logs:
             log.close()
+        print("log.close Ok")
 
     @staticmethod
     def get_logger():
