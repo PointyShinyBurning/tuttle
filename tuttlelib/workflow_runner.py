@@ -117,6 +117,9 @@ class WorkflowRuner:
         self._completed_processes = []
 
     def start_process_in_background(self, process):
+        print("start_process_in_background Ok")
+        sleep(1)
+        print("Slept 1s ok")
         self.acquire_worker()
 
         def process_run_callback(result):
@@ -126,8 +129,8 @@ class WorkflowRuner:
             self._completed_processes.append((process, signatures))
 
         process.set_start()
-        raise Exception("Stop")
         resp = self._pool.apply_async(run_process_without_exception, [process], callback = process_run_callback)
+        raise Exception("Stop")
         print resp.get()
 
     def run_parallel_workflow(self, workflow, keep_going=False):
