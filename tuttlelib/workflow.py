@@ -152,6 +152,10 @@ class Workflow:
 
                     self.create_reports()
                     print("create_reports ok")
+                    time.sleep(1)
+                    print("Slept 1s ok")
+                    sys.stdin.flush()
+
             print("Before print_preprocesses_footer ok")
             sys.stdin.flush()
             WorkflowRuner.print_preprocesses_footer()
