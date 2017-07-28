@@ -180,6 +180,7 @@ class WorkflowRuner:
                     process = runnables.pop()
                     print("Before start_process_in_background ok")
                     sys.stdin.flush()
+                    raise Exception("Stop")
                     self.start_process_in_background(process)
                     raise Exception("Stop")
                     print("After start_process_in_background ok")

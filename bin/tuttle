@@ -17,6 +17,7 @@ sys.path.insert(0, tuttle_module)
 from tuttlelib.entry_points import tuttle_main
 
 if __name__ == '__main__':
+    print(sys.argv)
     freeze_support()
     print("__main__ Ok")
     sys.exit(tuttle_main())
