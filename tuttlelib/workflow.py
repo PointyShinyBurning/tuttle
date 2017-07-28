@@ -1,6 +1,8 @@
 # -*- coding: utf8 -*-
 import sys
 
+import time
+
 from tuttlelib.report.html_repport import create_html_report
 from pickle import dump, load
 from tuttlelib.workflow_runner import WorkflowRuner, TuttleEnv
@@ -154,6 +156,10 @@ class Workflow:
             sys.stdin.flush()
             WorkflowRuner.print_preprocesses_footer()
         print("After __exit__ ok")
+        sys.stdin.flush()
+        time.sleep(1)
+        print("Slept 1s ok")
+        sys.stdin.flush()
 
     def create_reports(self):
         """ Write to disk files describing the workflow, with color for states

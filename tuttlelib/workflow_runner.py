@@ -130,6 +130,11 @@ class WorkflowRuner:
         :return: success_processes, failure_processes :
         list of processes ended with success, list of processes ended with failure
         """
+        print("run_parallel_workflow Ok")
+        time.sleep(1)
+        print("Slept 1s ok")
+        sys.stdin.flush()
+
         # TODO create tuttle dirs only once
         WorkflowRuner.create_tuttle_dirs()
         for process in workflow.iter_processes():
