@@ -169,7 +169,7 @@ class WorkflowRuner:
                 print("failures = {}".format(failures))
                 print("self.active_workers() = {}".format(self.active_workers()))
                 print("self._completed_processes = {}".format(self._completed_processes))
-                print("self.runnables = {}".format(self.runnables))
+                print("self.runnables = {}".format(runnables))
                 started_a_process = False
                 while self.workers_available() and runnables:
                     # No error
