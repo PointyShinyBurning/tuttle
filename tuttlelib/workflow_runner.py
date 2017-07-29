@@ -6,7 +6,7 @@ This module is responsible for the inner structure of the .tuttle directory
 """
 
 
-def run_process_without_exception(process):
+def test_run_process_without_exception(process):
     print("run_process_without_exception Ok")
     return
 
@@ -50,10 +50,7 @@ def output_signatures(process):
 # This is a free method, because it will be serialized and passed
 # to another process, so it must not be linked to objects nor
 # capture closures
-def run_process_without_exception2(process):
-    print("run_process_without_exception Ok")
-    return
-    raise Exception("Stop")
+def run_process_without_exception(process):
     multiprocessing.current_process().name = process.id
     print("After process name Ok")
     try:
@@ -139,8 +136,8 @@ class WorkflowRuner:
 
         process.set_start()
         resp = self._pool.apply_async(run_process_without_exception, [process], callback = process_run_callback)
-        print resp.wait(5)
-        raise Exception("Stop")
+        #print resp.wait(5)
+        #raise Exception("Stop")
 
     def run_parallel_workflow(self, workflow, keep_going=False):
         """ Runs a workflow by running every process in the right order
