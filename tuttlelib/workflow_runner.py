@@ -191,7 +191,7 @@ class WorkflowRuner:
                     print("Before start_process_in_background ok")
                     sys.stdin.flush()
                     self.start_process_in_background(process)
-                    raise Exception("Stop")
+                    #raise Exception("Stop")
                     print("After start_process_in_background ok")
                     sys.stdin.flush()
                     started_a_process = True
